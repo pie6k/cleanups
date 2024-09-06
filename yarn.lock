@@ -2408,6 +2408,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cleanups@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "cleanups@workspace:."
+  dependencies:
+    "@typescript-eslint/eslint-plugin": "npm:^6.7.0"
+    "@typescript-eslint/parser": "npm:^6.7.0"
+    "@vitest/coverage-c8": "npm:^0.33.0"
+    eslint: "npm:^8.49.0"
+    eslint-config-prettier: "npm:^9.0.0"
+    eslint-plugin-import: "npm:^2.28.1"
+    prettier: "npm:^3.0.3"
+    semantic-release: "npm:^21.1.1"
+    typescript: "npm:^5.2.2"
+    vite: "npm:^4.4.9"
+    vite-plugin-dts: "npm:^3.5.3"
+    vite-plugin-eslint: "npm:^1.8.1"
+    vitest: "npm:^0.34.4"
+  languageName: unknown
+  linkType: soft
+
 "cli-columns@npm:^4.0.0":
   version: 4.0.0
   resolution: "cli-columns@npm:4.0.0"
@@ -7777,26 +7797,6 @@ __metadata:
   checksum: 10c0/f54a0ba9ed56ce66baea90a3fa087a484002e807f28a8ccb2d070c75e76bde64bd0f6dce98b3802834156306050871b67eec325cb4e918015a360a3f0868c77c
   languageName: node
   linkType: hard
-
-"ts-npm-package-boilerplate@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "ts-npm-package-boilerplate@workspace:."
-  dependencies:
-    "@typescript-eslint/eslint-plugin": "npm:^6.7.0"
-    "@typescript-eslint/parser": "npm:^6.7.0"
-    "@vitest/coverage-c8": "npm:^0.33.0"
-    eslint: "npm:^8.49.0"
-    eslint-config-prettier: "npm:^9.0.0"
-    eslint-plugin-import: "npm:^2.28.1"
-    prettier: "npm:^3.0.3"
-    semantic-release: "npm:^21.1.1"
-    typescript: "npm:^5.2.2"
-    vite: "npm:^4.4.9"
-    vite-plugin-dts: "npm:^3.5.3"
-    vite-plugin-eslint: "npm:^1.8.1"
-    vitest: "npm:^0.34.4"
-  languageName: unknown
-  linkType: soft
 
 "tsconfig-paths@npm:^3.15.0":
   version: 3.15.0
