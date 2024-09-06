@@ -2,9 +2,14 @@
 
 Simple, yet powerful utility for managing cleanups.
 
-This utility is widely used in screen.studio app and I believe it saved us a lot of time and effort.
+This utility is widely used in [screen.studio](https://screen.studio) app and I believe it saved us a lot of time and effort.
 
 TLDR:
+
+```
+npm install cleanups
+yarn add cleanups
+```
 
 ```typescript
 import { createCleanup } from 'cleanups';
@@ -37,8 +42,8 @@ Note: I considered using `cleanup.add(cb)` instead of `cleanup.next = cb`, but d
 
 I think there are two main problems with managing cleanups in JavaScript:
 
-1. JavaScript APIs are inconsistent in how they require you to clean up things
-2. It is hard to compose cleanups
+1. JavaScript APIs are inconsistent in how they require you to clean up things (not managed by this lib)
+2. It is hard to compose cleanups (managed by this lib)
 
 Let's consider adding some event listeners and cleaning them up later.
 
@@ -51,7 +56,7 @@ element.addEventListener('click', someEventHandlerA);
 element.addEventListener('click', someEventHandlerB);
 
 // Later on
-return () => {
+return function cleanup() {
   element.removeEventListener('click', someEventHandlerA);
   element.removeEventListener('click', someEventHandlerB);
 };
@@ -88,7 +93,7 @@ const cleanup1 = addEventListener(element, 'click', function someEventHandlerA()
 const cleanup2 = addEventListener(element, 'click', function someEventHandlerB() {});
 
 // Later on
-return () => {
+return function cleanup() {
   cleanup1();
   cleanup2();
 };

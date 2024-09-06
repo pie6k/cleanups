@@ -1,4 +1,4 @@
-interface CleanupOptions {
+export interface CleanupOptions {
   once?: boolean;
   thisArg?: unknown;
 }
@@ -7,7 +7,7 @@ const $cleanups = Symbol('cleanups');
 const $wasCalled = Symbol('wasCalled');
 const $options = Symbol('options');
 
-export type Falsy = false | 0 | '' | null | undefined;
+type Falsy = false | 0 | '' | null | undefined;
 type AnyFunction = (...args: unknown[]) => unknown;
 type FunctionWithProps<F extends AnyFunction, Props> = F & Props;
 
@@ -20,8 +20,8 @@ type CleanupHolder = FunctionWithProps<
   }
 >;
 
-export type Cleanup = () => void;
-export type MaybeCleanup = Cleanup | void;
+type Cleanup = () => void;
+type MaybeCleanup = Cleanup | void;
 
 export type CleanupObject = FunctionWithProps<
   () => void,
