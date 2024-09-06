@@ -36,6 +36,39 @@ cleanup();
 // cleanup 3
 ```
 
+React example:
+
+```typescript
+import { useEffect } from 'react';
+import { createCleanup } from 'cleanups';
+
+/**
+ * Will register multiple event listeners with the same handler
+ */
+function useElementEvents(ref: RefObject<HTMLElement>, types: string[], handler: (event: Event) => void) {
+  useEffect(() => {
+    const element = ref.current;
+
+    if (!element) return;
+
+    const cleanup = createCleanup();
+
+    for (const type of types) {
+      cleanup.next = addEventListener(element, type, handler);
+    }
+
+    return cleanup;
+  }, [ref, types, handler]);
+}
+
+// Unify addEventListener and removeEventListener in one function - you can do the same with setTimeout, requestAnimationFrame, etc.
+function addEventListener(element: HTMLElement, type: string, handler: (event: Event) => void) {
+  element.addEventListener(type, handler);
+
+  return () => element.removeEventListener(type, handler);
+}
+```
+
 Note: I considered using `cleanup.add(cb)` instead of `cleanup.next = cb`, but decided to go with the latter as it results in less nesting (especially when using code formatters).
 
 # Rationale
@@ -85,7 +118,17 @@ function addEventListener<K extends keyof HTMLElementEventMap>(
 }
 ```
 
-Now - the same code looks like this:
+Note: We can easily create similar wrappers like `createTimeout`, `createAnimationFrame`, etc.
+
+```typescript
+function createTimeout(cb: () => void, delay: number) {
+  const id = setTimeout(cb, delay);
+
+  return () => clearTimeout(id);
+}
+```
+
+Back on track - the same code looks like this:
 
 ```typescript
 // We only need to know how to add event listeners, we don't need to remember how to remove them
@@ -97,18 +140,6 @@ return function cleanup() {
   cleanup1();
   cleanup2();
 };
-```
-
-We've already saved a bit. We also don't need to store those callbacks in the outer scope.
-
-We can easily create similar wrappers like `createTimeout`, `createAnimationFrame`, etc.
-
-```typescript
-function createTimeout(cb: () => void, delay: number) {
-  const id = setTimeout(cb, delay);
-
-  return () => clearTimeout(id);
-}
 ```
 
 Ok, now let's say we have some logic that is conditional and we have an array of elements we want to add event listeners to.
